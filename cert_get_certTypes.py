@@ -12,5 +12,6 @@ if args.proxy:
     extras = {'proxies':{'https':args.proxy}}
     data = extras
 
-list = comodo.getlist(header,**data)
+
+list = comodo.getlist(header)
 print (list)
