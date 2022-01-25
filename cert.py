@@ -44,7 +44,7 @@ extras = args.reqOps
 
 #use comodo.getlist to find
 certID = 226
-term = 730
+term = 365
 if args.platform == 'windows':
 	serverType = 14
 else:
