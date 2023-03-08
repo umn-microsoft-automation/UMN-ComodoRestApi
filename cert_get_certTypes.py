@@ -11,7 +11,8 @@ header = {'login':args.login,'password':args.pswd,'customerUri':'InCommon','Cont
 if args.proxy:
     extras = {'proxies':{'https':args.proxy}}
     data = extras
-
-
-list = comodo.getlist(header)
+    list = comodo.getlist(header,**data)
+else:
+    list = comodo.getlist(header)
+    
 print (list)
