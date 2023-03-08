@@ -1,4 +1,5 @@
 import requests, subprocess, argparse, make_openssl_config, comodo, sys, json, pprint, time
+from shutil import copyfile
 
 
 '''
@@ -32,6 +33,7 @@ subprocess.check_call(['openssl', 'genrsa','-out', args.cn+'.key', '2048'])
 # create csr
 subprocess.check_call(['openssl', 'req', '-new', '-batch', '-key', args.cn+'.key', '-config', args.cn+'.cnf', '-out', args.cn+'.csr'])
 
+copyfile(args.cn+'.key', 'out/'+args.cn+'.key')
 
 # Create the public key on Comodo's end
 with open(args.cn+'.csr', 'r') as f:
@@ -53,9 +55,11 @@ else:
 reqjson = {'orgId':args.orgId,'csr':csr,'certType':certID,'numberServers':0,'serverType':serverType,'term':term,'comments':"supercomments"}
 if args.altNames:
 	reqjson['subjAltNames'] = args.altNames
-data = extras
+
+#data = extras
 print(reqjson)
 #sys.exit()
+data = {}
 data['json'] = reqjson
 # erroll cert and store in response
 response  = comodo.enroll(header,**data)
